@@ -6,7 +6,7 @@ import {
 } from "../errors";
 import User from "../models/user.js";
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
 
@@ -30,14 +30,11 @@ const register = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error(error);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Something went wrong. Please try again later." });
+    next(error);
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -60,29 +57,32 @@ const login = async (req, res) => {
       .status(StatusCodes.OK)
       .json({ user: { username: user.username }, token });
   } catch (error) {
-    console.error(error);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Something went wrong. Please try again later." });
+    next(error);
   }
 };
 
-const getUser = async (req, res) => {
+const getUser = async (req, res, next) => {
   const {
     user: { userId },
   } = req;
-
-  const user = await User.findByPk(userId);
-  res.status(StatusCodes.OK).json({ user });
+  try {
+    const user = await User.findByPk(userId);
+    res.status(StatusCodes.OK).json({ user });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   const {
     user: { userId },
   } = req;
-
-  await User.destroy({ where: { id: userId } });
-  res.status(StatusCodes.OK).json({ message: "User deleted successfully" });
+  try {
+    await User.destroy({ where: { id: userId } });
+    res.status(StatusCodes.OK).json({ message: "User deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const updateUser = async (req, res, next) => {
