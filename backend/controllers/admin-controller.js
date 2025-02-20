@@ -29,7 +29,7 @@ const getAllAdmins = async (req, res, next) => {
 };
 
 const getUser = async (req, res, next) => {
-  const { userId } = req.params.userId;
+  const userId = req.params.userId;
   try {
     const user = await User.findByPk(userId);
     if (!user) {
@@ -42,7 +42,7 @@ const getUser = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
-  const { userId } = req.params.userId;
+  const userId = req.params.userId;
   try {
     const user = await User.findByPk(userId);
     if (!user) {
@@ -59,7 +59,7 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
-  const { userId } = req.params.userId;
+  const userId = req.params.userId;
   try {
     const count = await User.destroy(userId);
     if (!count) {
