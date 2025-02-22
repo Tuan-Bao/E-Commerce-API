@@ -1,7 +1,7 @@
-import { NotFoundError, BadRequestError } from "../errors";
-import { Cart, CartItem } from "../models/cart";
+import { NotFoundError, BadRequestError } from "../errors/index.js";
+import { Cart, CartItem } from "../models/cart.js";
 import { StatusCodes } from "http-status-codes";
-import Product from "../models/product";
+import Product from "../models/product.js";
 
 const createCart = async (req, res, next) => {
   const {
@@ -83,4 +83,4 @@ const deleteCart = async (req, res, next) => {
   }
 };
 
-exports = { createCart, getCart, deleteCart };
+export { createCart, getCart, deleteCart };

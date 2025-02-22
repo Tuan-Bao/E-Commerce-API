@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
-import { NotFoundError, BadRequestError } from "../errors";
+import { NotFoundError, BadRequestError } from "../errors/index.js";
 import { StatusCodes } from "http-status-codes";
-import Category from "../models/category";
+import Category from "../models/category.js";
 
 const getAllCategories = async (req, res, next) => {
   const { page, limit, search, sortBy = "id", sortOrder = "ASC" } = req.query;
@@ -99,7 +99,7 @@ const deleteCategory = async (req, res, next) => {
   }
 };
 
-exports = {
+export {
   getAllCategories,
   getCategory,
   createCategory,

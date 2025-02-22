@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import { configDotenv } from "dotenv";
 
-configDotenv({ path: "../.env" });
+configDotenv();
 
 console.log("Environment variables loaded:", {
   DB_NAME: process.env.DB_NAME,

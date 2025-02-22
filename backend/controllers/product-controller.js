@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
-import { NotFoundError, BadRequestError } from "../errors";
+import { NotFoundError, BadRequestError } from "../errors/index.js";
 import { StatusCodes } from "http-status-codes";
-import Product from "../models/product";
+import Product from "../models/product.js";
 
 const getAllProducts = async (req, res, next) => {
   const {
@@ -116,7 +116,7 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
-exports = {
+export {
   getAllProducts,
   getProduct,
   createProduct,

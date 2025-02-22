@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { UnauthenticatedError } from "../errors";
+import { UnauthenticatedError } from "../errors/index.js";
 import { configDotenv } from "dotenv";
 
 configDotenv();

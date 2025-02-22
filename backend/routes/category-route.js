@@ -1,6 +1,6 @@
 import express from "express";
 import * as categoryController from "../controllers/category-controller.js";
-import auth from "../middleware/auth.js";
+import auth from "../middleware/authentication.js";
 import adminAuth from "../middleware/admin-authorization.js";
 
 const router = express.Router();

@@ -3,7 +3,7 @@ import {
   BadRequestError,
   UnauthenticatedError,
   UnauthorizedError,
-} from "../errors";
+} from "../errors/index.js";
 import User from "../models/user.js";
 
 const register = async (req, res, next) => {
@@ -119,4 +119,4 @@ const logout = (req, res) => {
   res.status(StatusCodes.OK).json({ message: "Logged out successfully" });
 };
 
-exports = { register, login, getUser, deleteUser, updateUser, logout };
+export { register, login, getUser, deleteUser, updateUser, logout };

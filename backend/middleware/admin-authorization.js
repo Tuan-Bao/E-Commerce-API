@@ -1,5 +1,5 @@
-import User from "../models/user";
-import { UnauthorizedError } from "../errors/unauthorized";
+import User from "../models/user.js";
+import { UnauthorizedError } from "../errors/index.js";
 
 const adminAuth = async (req, res, next) => {
   const { userId } = req.user;

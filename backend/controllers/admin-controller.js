@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import { NotFoundError } from "../errors/not-found";
-import User from "../models/user";
+import { NotFoundError } from "../errors/index.js";
+import User from "../models/user.js";
 
 const getAllCustomers = async (req, res, next) => {
   try {
@@ -71,4 +71,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-exports = { getAllCustomers, getAllAdmins, getUser, updateUser, deleteUser };
+export { getAllCustomers, getAllAdmins, getUser, updateUser, deleteUser };

@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import { NotFoundError, BadRequestError } from "../errors";
-import Review from "../models/review";
+import { NotFoundError, BadRequestError } from "../errors/index.js";
+import Review from "../models/review.js";
 
 const getReviewForProduct = async (req, res, next) => {
   const { productId } = req.params;
@@ -109,7 +109,7 @@ const deleteReview = async (req, res, next) => {
   }
 };
 
-exports = {
+export {
   getReviewById,
   getReviewForProduct,
   getUserReviews,

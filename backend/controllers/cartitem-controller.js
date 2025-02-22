@@ -1,8 +1,8 @@
 import { Op } from "sequelize";
-import { NotFoudError, BadRequestError } from "../errors";
-import { Cart, CartItem } from "../models/cart";
+import { NotFoundError, BadRequestError } from "../errors/index.js";
+import { Cart, CartItem } from "../models/cart.js";
 import { StatusCodes } from "http-status-codes";
-import Product from "../models/product";
+import Product from "../models/product.js";
 
 const getCartItem = async (req, res, next) => {
   const userId = req.user.userId;
@@ -11,7 +11,7 @@ const getCartItem = async (req, res, next) => {
     const cart = await Cart.findOne({ where: { userId } });
 
     if (!cart) {
-      throw new NotFoudError("No cart was found");
+      throw new NotFoundError("No cart was found");
     }
 
     const cartId = cart.id;
@@ -20,7 +20,7 @@ const getCartItem = async (req, res, next) => {
     });
 
     if (!cartItem) {
-      throw new NotFoudError("No cartitem was found");
+      throw new NotFoundError("No cartitem was found");
     }
 
     res.status(StatusCodes.OK).json({ cartItem });
@@ -37,13 +37,13 @@ const createCartItem = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ where: { userId } });
     if (!cart) {
-      throw new NotFoudError("No associated Cart was found");
+      throw new NotFoundError("No associated Cart was found");
     }
 
     const cartId = cart.id;
     const product = await Product.findByPk(productId);
     if (!product) {
-      throw new NotFoudError("NO product was found with this id");
+      throw new NotFoundError("NO product was found with this id");
     }
 
     const existProduct = await CartItem.findOne({ where: { productId } });
@@ -70,7 +70,7 @@ const updateCartItem = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ where: { userId } });
     if (!cart) {
-      throw new NotFoudError("No associated Cart was found");
+      throw new NotFoundError("No associated Cart was found");
     }
 
     const cartId = cart.id;
@@ -79,7 +79,7 @@ const updateCartItem = async (req, res, next) => {
     });
 
     if (!item) {
-      throw new NotFoudError("Cart item not found");
+      throw new NotFoundError("Cart item not found");
     }
 
     if (!quantity) {
@@ -104,7 +104,7 @@ const deleteCartItem = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ where: { userId } });
     if (!cart) {
-      throw new NotFoudError("No Cart was found");
+      throw new NotFoundError("No Cart was found");
     }
 
     const cartId = cart.id;
@@ -113,7 +113,7 @@ const deleteCartItem = async (req, res, next) => {
     });
 
     if (!item) {
-      throw new NotFoudError("Cart item not found");
+      throw new NotFoundError("Cart item not found");
     }
 
     await item.destroy();
@@ -133,7 +133,7 @@ const clearCartItem = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ where: { userId } });
     if (!cart) {
-      throw new NotFoudError("Cart not found");
+      throw new NotFoundError("Cart not found");
     }
 
     const cartId = cart.id;
@@ -146,7 +146,7 @@ const clearCartItem = async (req, res, next) => {
   }
 };
 
-exports = {
+export {
   getCartItem,
   createCartItem,
   updateCartItem,
