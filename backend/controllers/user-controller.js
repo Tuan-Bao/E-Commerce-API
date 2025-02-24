@@ -15,11 +15,13 @@ const register = async (req, res, next) => {
     }
 
     const userAlreadyExists = await User.findOne({ where: { email } });
+    // console.log(userAlreadyExists);
     if (userAlreadyExists) {
       throw new BadRequestError("Email already in use");
     }
 
     const user = await User.create({ username, email, password });
+    // console.log(user);
     const token = user.createJWT();
 
     res.status(StatusCodes.CREATED).json({
@@ -91,7 +93,7 @@ const updateUser = async (req, res, next) => {
   } = req;
 
   try {
-    const user = await User.findByPk({ where: { id: userId } });
+    const user = await User.findByPk(userId);
 
     if (!user) {
       throw new NotFoundError("User not found.");

@@ -11,13 +11,14 @@ const getAllCategories = async (req, res, next) => {
   };
 
   if (search) {
-    options.where = { name: { [Op.iLike]: `%${search}%` } };
+    options.where = { name: { [Op.like]: `%${search}%` } };
   }
 
   if (page && limit) {
     options.offset = (page - 1) * parseInt(limit);
     options.limit = parseInt(limit) || 10;
   }
+  // console.log(options);
 
   try {
     const categories = await Category.findAll(options);

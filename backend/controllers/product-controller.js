@@ -65,8 +65,8 @@ const getProduct = async (req, res, next) => {
 
 const createProduct = async (req, res, next) => {
   try {
-    const newProduct = await Product.create(req.body);
-    req.status(StatusCodes.CREATED).json({ newProduct });
+    const newProduct = await Product.create({ ...req.body });
+    res.status(StatusCodes.CREATED).json({ newProduct });
   } catch (error) {
     next(error);
   }

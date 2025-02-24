@@ -76,11 +76,16 @@ const createReview = async (req, res, next) => {
 const updateReview = async (req, res, next) => {
   const { id } = req.params;
   const { rating, comment } = req.body;
+  const userId = req.user.userId;
 
   try {
     const review = await Review.findByPk(id);
     if (!review) {
       throw new NotFoundError("Review not found");
+    }
+
+    if (userId !== review.userId) {
+      throw new BadRequestError("You cannot update another user's review");
     }
 
     await review.update({ rating, comment });
@@ -95,11 +100,16 @@ const updateReview = async (req, res, next) => {
 
 const deleteReview = async (req, res, next) => {
   const { id } = req.params;
+  const userId = req.user.userId;
 
   try {
     const review = await Review.findByPk(id);
     if (!review) {
       throw new NotFoundError("Review not found");
+    }
+
+    if (userId !== review.userId) {
+      throw new BadRequestError("You cannot delete another user's review");
     }
 
     await review.destroy();

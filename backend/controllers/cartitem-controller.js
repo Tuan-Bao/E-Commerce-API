@@ -16,7 +16,7 @@ const getCartItem = async (req, res, next) => {
 
     const cartId = cart.id;
     const cartItem = await CartItem.findOne({
-      where: { productId: itemId, cartId },
+      where: { id: itemId, cartId },
     });
 
     if (!cartItem) {
@@ -75,7 +75,7 @@ const updateCartItem = async (req, res, next) => {
 
     const cartId = cart.id;
     const item = await CartItem.findOne({
-      where: { productId: itemId, cartId },
+      where: { id: itemId, cartId },
     });
 
     if (!item) {
@@ -109,7 +109,7 @@ const deleteCartItem = async (req, res, next) => {
 
     const cartId = cart.id;
     const item = await CartItem.findOne({
-      where: { productId: itemId, cartId },
+      where: { id: itemId, cartId },
     });
 
     if (!item) {

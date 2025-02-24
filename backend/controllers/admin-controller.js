@@ -4,7 +4,7 @@ import User from "../models/user.js";
 
 const getAllCustomers = async (req, res, next) => {
   try {
-    const users = await User.findAll({ where: { role: "Admin" } });
+    const users = await User.findAll({ where: { role: "User" } });
     if (!users) {
       throw new NotFoundError("No users was found");
     }
@@ -61,7 +61,7 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   const userId = req.params.userId;
   try {
-    const count = await User.destroy(userId);
+    const count = await User.destroy({ where: { id: userId } });
     if (!count) {
       throw new NotFoundError("User not found");
     }

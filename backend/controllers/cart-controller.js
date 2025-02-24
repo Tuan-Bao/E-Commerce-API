@@ -31,7 +31,7 @@ const getCart = async (req, res, next) => {
       throw new NotFoundError("No associated Cart was found");
     }
     const cartId = cart.id;
-    const count = await Cart.count({ where: { cartId } });
+    const count = await CartItem.count({ where: { cartId } });
 
     if (!count) {
       throw new NotFoundError("No items were found for this cart");

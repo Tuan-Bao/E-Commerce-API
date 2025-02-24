@@ -2,6 +2,9 @@ import sequelize from "../config/database.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 class User extends Model {}
 
@@ -101,9 +104,10 @@ User.beforeSave(async (user) => {
 });
 
 User.prototype.createJWT = function () {
+  console.log(process.env.JWT_SECRET);
   return jwt.sign(
     { id: this.id, username: this.username },
-    process.env.JWT_SERCET,
+    process.env.JWT_SECRET,
     {
       expiresIn: "1h",
     }
